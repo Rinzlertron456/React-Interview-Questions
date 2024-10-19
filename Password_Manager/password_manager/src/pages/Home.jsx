@@ -2,7 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  return <></>;
+  return (
+    <>
+      <div className="container"></div>
+    </>
+  );
 }
 
 export default Home;
