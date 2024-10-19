@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="container text-center" style={{ marginTop: "7rem" }}>
@@ -26,7 +27,7 @@ function Home() {
         </button>
         <button
           className="btn btn-primary mx-5 my-4"
-          onClick={() => navigate("/welcome")}
+          onClick={() => navigate("/")}
         >
           Go back to Welcome
         </button>
