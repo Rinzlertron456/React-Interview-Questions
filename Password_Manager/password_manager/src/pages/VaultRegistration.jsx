@@ -1,23 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 function VaultRegistration() {
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [vault, setVault] = useState({
     vaultName: "",
     password: "",
-    confirmPassword: "",
   });
   const navigate = useNavigate();
+  const handleConfirmPassword = (e) => {
+    console.log("Confirm Password: " + confirmPassword);
+    setConfirmPassword(e.target.value);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     // Perform validation and save the vault to the database
     // Reset the form state
-    if (vault.password === vault.confirmPassword) {
+    if (vault.password === confirmPassword) {
+      console.log("Confirm Password: " + confirmPassword);
       alert("Vault created successfully!");
       await axios.post("http://localhost:8080/vault", vault);
       setVault({ vaultName: "", password: "", confirmPassword: "" });
       navigate("/home");
     } else {
+      console.log("Confirm Password: " + confirmPassword);
       alert("Passwords do not match!");
       setVault({ vaultName: "", password: "", confirmPassword: "" });
     }
@@ -26,7 +33,7 @@ function VaultRegistration() {
     <>
       <div className="container text-center" style={{ marginTop: "5rem" }}>
         <h1>Create a New Vault for yourself, Please</h1>
-        <form>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div className="form-group mb-2">
             <label htmlFor="username">Vault Name:</label>
             <input
@@ -56,19 +63,12 @@ function VaultRegistration() {
             <input
               type="password"
               className="form-control"
-              id="confirmPassword"
-              value={vault.confirmPassword}
-              onChange={(e) =>
-                setVault({ ...vault, confirmPassword: e.target.value })
-              }
+              // id="confirmPassword"
+              onChange={(e) => handleConfirmPassword(e)}
               required
             />
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onSubmit={(e) => handleSubmit(e)}
-          >
+          <button type="submit" className="btn btn-primary">
             Register
           </button>
         </form>
