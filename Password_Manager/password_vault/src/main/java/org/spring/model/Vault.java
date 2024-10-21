@@ -1,11 +1,13 @@
 package org.spring.model;
 
 import jakarta.persistence.Entity;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 @Entity
 public class Vault {
     @Id
+    @GeneratedValue
     private String vaultName;
     private String password;
 
