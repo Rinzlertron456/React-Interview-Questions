@@ -2,25 +2,24 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 function VaultRegistration() {
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [vault, setVault] = useState({
     vaultName: "",
     password: "",
+    confirmPassword: "",
   });
   const navigate = useNavigate();
-  const handleConfirmPassword = (e) => {
-    console.log("Confirm Password: " + confirmPassword);
-    setConfirmPassword(e.target.value);
+  const handleChange = (e) => {
+    setVault({ ...vault, [e.target.id]: e.target.value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Perform validation and save the vault to the database
     // Reset the form state
-    if (vault.password === confirmPassword) {
-      console.log("Confirm Password: " + confirmPassword);
-      alert("Vault created successfully!");
+    if (vault.password === vault.confirmPassword) {
+      console.log(vault);
       await axios.post("http://localhost:8080/vault", vault);
+      alert("Vault created successfully!");
       setVault({ vaultName: "", password: "", confirmPassword: "" });
       navigate("/home");
     } else {
@@ -41,9 +40,7 @@ function VaultRegistration() {
               className="form-control"
               id="vaultName"
               value={vault.vaultName}
-              onChange={(e) =>
-                setVault({ ...vault, vaultName: e.target.value })
-              }
+              onChange={(e) => handleChange(e)}
               required
             />
           </div>
@@ -54,7 +51,7 @@ function VaultRegistration() {
               className="form-control"
               id="password"
               value={vault.password}
-              onChange={(e) => setVault({ ...vault, password: e.target.value })}
+              onChange={(e) => handleChange(e)}
               required
             />
           </div>
@@ -63,8 +60,8 @@ function VaultRegistration() {
             <input
               type="password"
               className="form-control"
-              // id="confirmPassword"
-              onChange={(e) => handleConfirmPassword(e)}
+              id="confirmPassword"
+              onChange={(e) => handleChange(e)}
               required
             />
           </div>

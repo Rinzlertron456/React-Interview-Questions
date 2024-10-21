@@ -5,6 +5,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Welcome from "./pages/Welcome";
 import Home from "./pages/Home";
 import VaultRegistration from "./pages/VaultRegistration";
+import VaultCredentials from "./pages/VaultCredentials";
 import VaultLogin from "./pages/VaultLogin";
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/vaultLogin" element={<VaultLogin />} />
+          <Route path="/vault/:id" element={<VaultLogin />} />
           <Route path="/vaultRegister" element={<VaultRegistration />} />
         </Routes>
       </Router>

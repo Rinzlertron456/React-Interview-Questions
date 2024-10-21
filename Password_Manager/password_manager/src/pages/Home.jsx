@@ -15,7 +15,7 @@ function Home() {
         <h5 className="mb-5">How can we be of service to you?</h5>
         <button
           className="btn btn-primary mx-5 my-4"
-          onClick={() => navigate("/vaultLogin")}
+          onClick={() => navigate("/vault/:id")}
         >
           Login to an existing vault
         </button>
@@ -24,6 +24,12 @@ function Home() {
           onClick={() => navigate("/vaultRegister")}
         >
           Register a new vault
+        </button>
+        <button
+          className="btn btn-primary mx-5 my-4"
+          onClick={() => navigate("/vaultCredentials")}
+        >
+          Fetch Vault Credentials
         </button>
         <button
           className="btn btn-primary mx-5 my-4"

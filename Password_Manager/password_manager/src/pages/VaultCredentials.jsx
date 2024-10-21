@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-function VaultLogin() {
-  const [vaultLogin, setVaultLogin] = useState();
-  const { id: paramId } = useParams();
+import React from "react";
+
+function VaultCredentials() {
+  const [vaults, setVaults] = useState([]);
+  const navigate = useNavigate();
   const [vault, setVault] = useState({
     vaultName: "",
     password: "",
   });
   useEffect(() => {
-    loadVaultLogin();
+    loadVaults();
   }, []);
-  const loadVaultLogin = async () => {
-    console.log("Param ID: " + paramId);
-    const result = await axios.get(`http://localhost:8080/vault/${paramId}`);
-    setVaultLogin(result.data);
+  const loadVaults = async () => {
+    const result = await axios.get("http://localhost:8080/vaults");
+    setVaults(result.data);
+    console.log(vaults);
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (vaultLogin.password === vault.password) {
-      alert("Thank you! You are logged in successfully!");
+    const vaultFound = vaults.find((v) => v.vaultName === vault.vaultName);
+    if (vaultFound && vaultFound.password === vault.password) {
+      alert("Thank you. You are now signed in.");
     } else {
-      alert("Incorrect password. Please try again.");
-      setVault({ vaultName: "", password: "", confirmPassword: "" });
+      alert("Invalid credentials. Please try again.");
     }
+    setVault({ vaultName: "", password: "" });
   };
   const handleChange = (e) => {
     setVault({ ...vault, [e.target.id]: e.target.value });
@@ -64,4 +64,4 @@ function VaultLogin() {
   );
 }
 
-export default VaultLogin;
+export default VaultCredentials;
