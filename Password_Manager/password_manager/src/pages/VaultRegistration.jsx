@@ -2,22 +2,26 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 function VaultRegistration() {
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [vault, setVault] = useState({
     vaultName: "",
     password: "",
-    confirmPassword: "",
   });
   const navigate = useNavigate();
   const handleChange = (e) => {
     setVault({ ...vault, [e.target.id]: e.target.value });
+  };
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Perform validation and save the vault to the database
     // Reset the form state
-    if (vault.password === vault.confirmPassword) {
+    if (vault.password === confirmPassword) {
       console.log(vault);
+      console.log("Confirm Password: " + confirmPassword);
       await axios.post("http://localhost:8080/vault", vault);
       alert("Vault created successfully!");
       setVault({ vaultName: "", password: "", confirmPassword: "" });
@@ -61,7 +65,7 @@ function VaultRegistration() {
               type="password"
               className="form-control"
               id="confirmPassword"
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleConfirmPasswordChange(e)}
               required
             />
           </div>

@@ -27,6 +27,12 @@ function Home() {
         </button>
         <button
           className="btn btn-primary mx-5 my-4"
+          onClick={() => navigate("/vaultPasswordChange")}
+        >
+          Change Vault Password
+        </button>
+        <button
+          className="btn btn-primary mx-5 my-4"
           onClick={() => navigate("/vaultCredentials")}
         >
           Fetch Vault Credentials

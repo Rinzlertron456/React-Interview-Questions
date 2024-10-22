@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function VaultCredentials() {
+function VaultPasswordChange() {
   const [vaults, setVaults] = useState([]);
   const navigate = useNavigate();
   const [vault, setVault] = useState({
@@ -38,28 +38,26 @@ function VaultCredentials() {
     setVault({ ...vault, [e.target.id]: e.target.value });
   };
   return (
-    <>
-      <div className="container text-center" style={{ marginTop: "5rem" }}>
-        <h1>Enter into the vault, User</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div className="form-group mb-2">
-            <label htmlFor="username">Vault Name:</label>
-            <input
-              type="text"
-              className="form-control"
-              id="vaultName"
-              value={vault.vaultName}
-              onChange={(e) => handleChange(e)}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Get Vault Password
-          </button>
-        </form>
-      </div>
-    </>
+    <div className="container text-center" style={{ marginTop: "5rem" }}>
+      <h1>Change your password, User</h1>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <div className="form-group mb-2">
+          <label htmlFor="username">Vault Name:</label>
+          <input
+            type="text"
+            className="form-control"
+            id="vaultName"
+            value={vault.vaultName}
+            onChange={(e) => handleChange(e)}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Change Password
+        </button>
+      </form>
+    </div>
   );
 }
 
-export default VaultCredentials;
+export default VaultPasswordChange;

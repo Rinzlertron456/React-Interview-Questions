@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 function VaultLogin() {
   const [vaultLogin, setVaultLogin] = useState();
-  const { id: paramId } = useParams();
   const [vault, setVault] = useState({
     vaultName: "",
     password: "",
@@ -12,17 +11,18 @@ function VaultLogin() {
     loadVaultLogin();
   }, []);
   const loadVaultLogin = async () => {
-    console.log("Param ID: " + paramId);
-    const result = await axios.get(`http://localhost:8080/vault/${paramId}`);
+    const result = await axios.get("http://localhost:8080/vaults");
+    console.log(result);
     setVaultLogin(result.data);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (vaultLogin.password === vault.password) {
+    const vaultFound = vaultLogin.find((v) => v.vaultName === vault.vaultName);
+    if (vaultLogin.password === vaultFound.password) {
       alert("Thank you! You are logged in successfully!");
     } else {
       alert("Incorrect password. Please try again.");
-      setVault({ vaultName: "", password: "", confirmPassword: "" });
+      setVault({ vaultName: "", password: "" });
     }
   };
   const handleChange = (e) => {
