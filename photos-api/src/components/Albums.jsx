@@ -7,14 +7,12 @@ function Albums() {
   const [currentAlbumId, setCurrentAlbumId] = useState(0);
   const [albumSelected, setSelectedFlag] = useState(false);
   const [albumsPosters, setAlbumsPosters] = useState([]);
-
   const [albums, setAlbums] = useState([]);
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setAlbums(data);
-
         let albumLabels = [];
         let currentIndex = 0;
         data.forEach((label, i) => {
@@ -38,12 +36,12 @@ function Albums() {
   const styles = { width: 150 };
   return (
     <>
-      <div className="container">
+      <div className="album-container">
         {!albumSelected &&
           albumsPosters.map((album, index) => {
             return (
               <div key={index}>
-                <div className="card" style={{ width: "18rem" }}>
+                <div className="album-card" style={{ width: "18rem" }}>
                   <div className="card-body">
                     <img src={album.url} alt="poster" style={styles} />
                     <h5 className="card-title">Album No {album.id}</h5>
@@ -58,10 +56,12 @@ function Albums() {
               </div>
             );
           })}
-        {albumSelected &&
-          albums.map((photo, index) => {
-            if (photo.albumId == currentAlbumId) {
-              return (
+      </div>
+      {albumSelected &&
+        albums.map((photo, index) => {
+          if (photo.albumId == currentAlbumId) {
+            return (
+              <>
                 <Album
                   key={index}
                   currentId={photo.albumId}
@@ -70,10 +70,10 @@ function Albums() {
                   url={photo.url}
                   thumbnailUrl={photo.thumbnailUrl}
                 />
-              );
-            }
-          })}
-      </div>
+              </>
+            );
+          }
+        })}
     </>
   );
 }
