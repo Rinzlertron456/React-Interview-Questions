@@ -1,8 +1,8 @@
-.album-container {
-  margin: 5rem auto 0 3.5rem;
-  display: flex;
+.container {
+  margin: 5rem auto 0 auto;
+  display: inline-block;
+  width: 25%;
 }
-
 .album-card {
   margin: 0 auto 0 auto;
 }

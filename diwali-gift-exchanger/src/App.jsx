@@ -37,7 +37,6 @@ function App() {
       for (let j = i + 1; j < participants.length; j++) {
         let p2 = participants[j];
         console.log("p2: " + p2);
-
         temp = p1.gifts;
         p1.gifts = p2.gifts;
         p2.gifts = temp;

@@ -1,11 +1,55 @@
 import React, { useEffect, useState } from "react";
 import Album from "./Album";
 import { useNavigate } from "react-router-dom";
+import NavBar from "./NavBar";
 
 function Albums() {
   const url = "https://jsonplaceholder.typicode.com/photos";
   const [currentAlbumId, setCurrentAlbumId] = useState(0);
+  const [albumPosters, setAlbumPosters] = useState([]);
   const [albumSelected, setSelectedFlag] = useState(false);
+  // const albumPosters = [
+  //   {
+  //     id: 1,
+  //     url: "https://logospng.org/wp-content/uploads/google-photos.png",
+  //   },
+  //   {
+  //     id: 2,
+  //     url: "https://logospng.org/wp-content/uploads/google-photos.png",
+  //   },
+  //   {
+  //     id: 3,
+  //     url: "https://logospng.org/wp-content/uploads/google-photos.png",
+  //   },
+  //   {
+  //     id: 4,
+  //     url: "https://logospng.org/wp-content/uploads/google-photos.png",
+  //   },
+  //   {
+  //     id: 5,
+  //     url: "https://logospng.org/wp-content/uploads/google-photos.png",
+  //   },
+  //   {
+  //     id: 6,
+  //     url: "https://logospng.org/wp-content/uploads/google-photos.png",
+  //   },
+  //   {
+  //     id: 7,
+  //     url: "https://logospng.org/wp-content/uploads/google-photos.png",
+  //   },
+  //   {
+  //     id: 8,
+  //     url: "https://logospng.org/wp-content/uploads/google-photos.png",
+  //   },
+  //   {
+  //     id: 9,
+  //     url: "https://logospng.org/wp-content/uploads/google-photos.png",
+  //   },
+  //   {
+  //     id: 10,
+  //     url: "https://logospng.org/wp-content/uploads/google-photos.png",
+  //   },
+  // ];
   const [albumsPosters, setAlbumsPosters] = useState([]);
   const [albums, setAlbums] = useState([]);
   useEffect(() => {
@@ -24,7 +68,7 @@ function Albums() {
             });
           }
         });
-        setAlbumsPosters(albumLabels);
+        setAlbumPosters(albumLabels);
       });
   }, []);
 
@@ -36,12 +80,13 @@ function Albums() {
   const styles = { width: 150 };
   return (
     <>
-      <div className="album-container">
-        {!albumSelected &&
-          albumsPosters.map((album, index) => {
-            return (
+      <NavBar />
+      {!albumSelected &&
+        albumPosters.map((album, index) => {
+          return (
+            <div className="container">
               <div key={index}>
-                <div className="album-card" style={{ width: "18rem" }}>
+                <div className="album-card" style={{ width: "8rem" }}>
                   <div className="card-body">
                     <img src={album.url} alt="poster" style={styles} />
                     <h5 className="card-title">Album No {album.id}</h5>
@@ -54,22 +99,24 @@ function Albums() {
                   </div>
                 </div>
               </div>
-            );
-          })}
-      </div>
+            </div>
+          );
+        })}
       {albumSelected &&
         albums.map((photo, index) => {
           if (photo.albumId == currentAlbumId) {
             return (
               <>
-                <Album
-                  key={index}
-                  currentId={photo.albumId}
-                  id={photo.id}
-                  title={photo.title}
-                  url={photo.url}
-                  thumbnailUrl={photo.thumbnailUrl}
-                />
+                <div className="container">
+                  <Album
+                    key={index}
+                    currentId={photo.albumId}
+                    id={photo.id}
+                    title={photo.title}
+                    url={photo.url}
+                    thumbnailUrl={photo.thumbnailUrl}
+                  />
+                </div>
               </>
             );
           }
