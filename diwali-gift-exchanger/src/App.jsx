@@ -48,6 +48,7 @@ function App() {
     const updatedParticipants = participants.filter(
       (participant) => participant.participantName !== e
     );
+    setParticipant({ participantName: "", giftsAssigned: false, gifts: "" });
     setParticipants(updatedParticipants);
   };
   return (
